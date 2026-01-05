@@ -23,7 +23,8 @@
       '<p>Имя: ' + user.first_name + '</p>';
               }
     const button = document.getElementById('MyButton');
-    button.onclick = function() { alert('Кнопка нажата!');
+    button.onclick = function() { tg.sendData('Кнопка была нажата!');
+                                 alert('Данные отправлены боту!');
                                 };
       </script>
 </body>
