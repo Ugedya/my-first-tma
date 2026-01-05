@@ -8,6 +8,7 @@
 <body>
   <h1>Хэллоу!</h1>
   <p>Йо функция</p>
+<button id="MyButton">Нажми меня</button>
   <script>
     const tg = 
       window.Telegram.WebApp;
@@ -21,6 +22,9 @@
       document.body.innerHTML += 
       '<p>Имя: ' + user.first_name + '</p>';
               }
+    const button = document.getElementById('myButton');
+    button.onclick = function() { alert('Кнопка нажата!');
+                                };
       </script>
 </body>
 </html>
