@@ -54,7 +54,7 @@
                 tg.showAlert(`🎉 Угадал с ${attempts} попытки!`, () => {
                 tg.MainButton.setText("Новая игра");
                 tg.MainButton.offClick();
-                tg.MainButton.onClick(function() { location.reload();});
+                tg.MainButton.onClick(function() { location.reload();});});
           } else {
                 const hint = userGuess < secretNumber ? "Больше!" : "Меньше!";
                 document.getElementById('hint').textContent = hint;
