@@ -45,11 +45,11 @@
           const userGuess = 
           parseInt(document.getElementById('guessInput').value);
           if (userGuess === secretNumber) {
-                tg.sendData('win:${attempts}');
-                tg.showAlert('🎉 Угадал с ${attempts} попытки!');
+                tg.sendData(`win:${attempts}`);
+                tg.showAlert(`🎉 Угадал с ${attempts} попытки!`);
                 tg.MainButton.setText("Закрыть");
                 tg.MainButton.offClick();
-                tg.MainButton.onClick( () => tg.close());
+                tg.MainButton.onClick( () => tg.close())};
        else {
                 const hint = userGuess < secretNumber ? "Больше!" : "Меньше!";
                 document.getElementById('hint').textContent = hint;
