@@ -1,1 +1,148 @@
+> Эд:
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Камень-Ножницы-Бумага</title>
+    <meta charset="utf-8">
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <style>
+        body {
+            font-family: -apple-system, sans-serif;
+            padding: 20px;
+            text-align: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            min-height: 100vh;
+        }
+        .choices {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 30px 0;
+        }
+        .choice {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            transition: transform 0.3s;
+        }
+        .choice:hover {
+            transform: scale(1.1);
+        }
+        .result {
+            font-size: 24px;
+            margin: 20px;
+            min-height: 60px;
+        }
+        .score {
+            font-size: 20px;
+            margin: 15px;
+        }
+        .emoji-large {
+            font-size: 60px;
+            margin: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>✊✌️✋</h1>
+    <h2>Камень-Ножницы-Бумага</h2>
+    
+    <div class="score">
+        Вы: <span id="userScore">0</span> | 
+        Бот: <span id="botScore">0</span>
+    </div>
+    
+    <div class="result" id="result">Выберите вариант!</div>
+    
+    <div class="emoji-large">
+        <span id="userEmoji">❔</span> vs <span id="botEmoji">❔</span>
+    </div>
+    
+    <div class="choices">
+        <div class="choice" data-choice="rock">✊</div>
+        <div class="choice" data-choice="scissors">✌️</div>
+        <div class="choice" data-choice="paper">✋</div>
+    </div>
+    
+    <script>
+        const tg = window.Telegram.WebApp;
+        tg.ready();
+        tg.expand();
+        
+        tg.MainButton.setText("Отправить результат");
+        tg.MainButton.hide(); // Пока скрываем
+        
+        let userScore = 0;
+        let botScore = 0;
+        let lastUserChoice = '';
+        let lastBotChoice = '';
+        
+        const choices = {
+            rock: { emoji: '✊', beats: 'scissors' },
+            scissors: { emoji: '✌️', beats: 'paper' },
+            paper: { emoji: '✋', beats: 'rock' }
+        };
+        document.querySelectorAll('.choice').forEach(choice => {
+            choice.addEventListener('click', function() {
+                const userChoice = this.dataset.choice;
+                playRound(userChoice);
+            });
+        });
+        
+        function playRound(userChoice) {
+            // Выбор бота
+            const choicesArray = Object.keys(choices);
+            const botChoice = choicesArray[Math.floor(Math.random() * 3)];
+            
+            // Сохраняем для отправки
+            lastUserChoice = userChoice;
+            lastBotChoice = botChoice;
+            
+            // Показываем эмодзи
+            document.getElementById('userEmoji').textContent = choices[userChoice].emoji;
+            document.getElementById('botEmoji').textContent = choices[botChoice].emoji;
+            
+            // Определяем победителя
+            let resultText = '';
+            
+            if (userChoice === botChoice) {
+                resultText = '🤝 Ничья!';
+            } else if (choices[userChoice].beats === botChoice) {
+                resultText = '🎉 Вы выиграли!';
+                userScore++;
+            } else {
+                resultText = '🤖 Бот выиграл!';
+                botScore++;
+            }
+            
+            // Обновляем интерфейс
+            document.getElementById('result').textContent = resultText;
+            document.getElementById('userScore').textContent = userScore;
+            document.getElementById('botScore').textContent = botScore;
+
+// Показываем кнопку отправки результата
+            if (userScore >= 3 || botScore >= 3) {
+                tg.MainButton.setText(`Отправить: ${userScore}:${botScore}`);
+                tg.MainButton.show();
+            }
+        }
+        
+        // Отправка результата боту
+        tg.MainButton.onClick(() => {
+            const result = userScore > botScore ? 'win' : 'lose';
+            tg.sendData(`rps:${result}:${userScore}:${botScore}`);
+            tg.showAlert(`Итог: ${userScore}:${botScore}. Данные отправлены!`);
+            tg.MainButton.hide();
+        });
+    </script>
+</body>
+</html>
 
