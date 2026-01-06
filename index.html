@@ -44,12 +44,17 @@
           attempts++;
           const userGuess = 
           parseInt(document.getElementById('guessInput').value);
+          if (isNaN(userGuess)) {
+            document.getElementById('hint').textContent = 'Введите число!';
+            attemps--;
+            return;
+          }
           if (userGuess === secretNumber) {
                 tg.sendData(`win:${attempts}`);
                 tg.showAlert(`🎉 Угадал с ${attempts} попытки!`, () => {
-                tg.MainButton.setText("Закрыть");
+                tg.MainButton.setText("Новая игра");
                 tg.MainButton.offClick();
-                tg.MainButton.onClick( () => tg.close());});
+                tg.MainButton.onClick(function() { location.reload();});
           } else {
                 const hint = userGuess < secretNumber ? "Больше!" : "Меньше!";
                 document.getElementById('hint').textContent = hint;
