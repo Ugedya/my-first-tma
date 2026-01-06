@@ -35,7 +35,7 @@
         const tg = window.Telegram.WebApp;
         tg.ready();
         tg.expand();
-        document.body.innerHTML += '<p id="debug" style="color: red; font-size: 12px;">DEBUG; Script loaded</p>';
+        document.body.innerHTML += '<p id="debug" style="color: red; font-size: 12px;">DEBUG: Script loaded</p>';
         const startParam = tg.initDataUnsafe.start_param;
         const secretNumber = startParam ? parseInt(startParam) : 7;
         tg.MainButton.setText("Проверить");
@@ -46,8 +46,8 @@
           const userGuess = 
           parseInt(document.getElementById('guessInput').value);
           if (userGuess === secretNumber) {
-                tg.sendData(`win:${attempts}`);
-                tg.showAlert(`🎉 Угадал с ${attempts} попытки!`);
+                tg.sendData('win:${attempts}');
+                tg.showAlert('🎉 Угадал с ${attempts} попытки!');
                 tg.MainButton.setText("Закрыть");
                 tg.MainButton.offClick();
                 tg.MainButton.onClick(() => tg.close());
