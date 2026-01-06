@@ -3,7 +3,7 @@
   <head>
     <title>Угадай число</title>
     <meta charset="utf-8">
-    <scritp scr="https://telegram.org/js/telegram-web-app.js"></scritp>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <style>
       body {
         font-family: -apple-system, BlinkMacSystemFont, sans-serif;
@@ -32,15 +32,15 @@
         placeholder="1-10">
     </div>
       <script>
-        const tg = window/Telegram.WebApp;
+        const tg = window.Telegram.WebApp;
         tg.ready();
         tg.expand();
         const startParam = tg.initDataUnsafe.start_param;
         const secretNumber = startParam ? parseInt(startParam) : 7;
-        tg.MainButtom.setText("Проверить");
+        tg.MainButton.setText("Проверить");
         tg.MainButton.show();
         let attempts = 0;
-        tg.mainButton.onClick(function() {
+        tg.MainButton.onClick(function() {
           attempts++;
           const userGuess = 
           parseInt(document.getElementById('guessInput').value);
