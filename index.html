@@ -36,11 +36,10 @@
         tg.ready();
         tg.expand();
         function getRandomNumber() {
-          return
-          Math.floor(Math.random() * 10) +1;}
+          return Math.floor(Math.random() * 10) +1;}
         const startParam = tg.initDataUnsafe.start_param;
         let secretNumber = startParam ? parseInt(startParam) : getRandomNumber();
-        if (isNan(secretNumber) | | secretNumber < 1 || secretNumber > 10) { secretNumber = getRandomNumber();}
+        if (isNaN(secretNumber) || secretNumber < 1 || secretNumber > 10) { secretNumber = getRandomNumber();}
         tg.MainButton.setText("Проверить");
         tg.MainButton.show();
         let attempts = 0;
@@ -51,7 +50,7 @@
           parseInt(document.getElementById('guessInput').value);
           if (isNaN(userGuess)) {
             document.getElementById('hint').textContent = 'Введите число!';
-            attemps--;
+            attempts--;
             return;
           }
           if (userGuess === secretNumber) {
