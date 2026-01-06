@@ -41,6 +41,7 @@
         tg.MainButton.show();
         let attempts = 0;
         tg.MainButton.onClick(function() {
+          if (window.gameCompleted) return;
           attempts++;
           const userGuess = 
           parseInt(document.getElementById('guessInput').value);
@@ -50,11 +51,12 @@
             return;
           }
           if (userGuess === secretNumber) {
+            window.gameCompleted = true;
                 tg.sendData(`win:${attempts}`);
                 tg.showAlert(`🎉 Угадал с ${attempts} попытки!`, () => {
                 tg.MainButton.setText("Новая игра");
                 tg.MainButton.offClick();
-                tg.MainButton.onClick(function() { location.reload();});});
+                tg.MainButton.onClick(function() { window.gameCompleted = false; location.reload();});});
           } else {
                 const hint = userGuess < secretNumber ? "Больше!" : "Меньше!";
                 document.getElementById('hint').textContent = hint;
