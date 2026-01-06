@@ -35,6 +35,12 @@
         const tg = window.Telegram.WebApp;
         tg.ready();
         tg.expand();
+        console.log('=== DEBUG ===');
+console.log('Telegram object exists:', !!window.Telegram);
+console.log('WebApp exists:', !!window.Telegram.WebApp);
+console.log('MainButton exists:', !!tg.MainButton);
+console.log('tg object keys:', Object.keys(tg));
+console.log('initDataUnsafe:', tg.initDataUnsafe);
         const startParam = tg.initDataUnsafe.start_param;
         const secretNumber = startParam ? parseInt(startParam) : 7;
         tg.MainButton.setText("Проверить");
